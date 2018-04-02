@@ -33,7 +33,7 @@ public class GridDrawer implements Runnable {
     }
 
     protected void drawGrid() {
-        String[][] outputMatrix = formOutputMatrix(grid, path);
+        String[][] outputMatrix = formOutputMatrix();
         ColorDictionary dictionary = ColorDictionary.getInstance();
         for (int i = 0; i < outputMatrix.length; i++) {
             for (int j = 0; j < outputMatrix[0].length; j++) {
@@ -45,7 +45,7 @@ public class GridDrawer implements Runnable {
         }
     }
 
-    protected static String[][] formOutputMatrix(Grid grid, List<SquareGridNode> path) {
+    protected String[][] formOutputMatrix() {
         SquareGridNode[][] nodes = grid.getNodes();
         String[][] outputMatrix = new String[nodes.length][nodes.length];
         for (int i = 0; i < nodes.length; i++) {

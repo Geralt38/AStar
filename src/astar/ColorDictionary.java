@@ -16,6 +16,8 @@ public class ColorDictionary extends HashMap<String,Color>{
             instance.put("S",Color.GREEN);
             instance.put("E",Color.RED);
             instance.put("P",Color.YELLOW);
+            instance.put("C",Color.BLUE);
+            instance.put("O",Color.CYAN);
         }
         return instance;
     }

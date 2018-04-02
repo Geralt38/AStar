@@ -1,6 +1,8 @@
 package astar;
 
 
+import astar.drawers.ProgressDrawer;
+
 import java.util.*;
 
 
@@ -32,7 +34,7 @@ public class PathFinder {
 
 
 
-    public static List findPath(Node startNode, Node goalNode) {
+    public static List findPath(Node startNode, Node goalNode, boolean showSteps, Worker worker) {
 
         PriorityList openList = new PriorityList();
         LinkedList closedList = new LinkedList();
@@ -46,7 +48,6 @@ public class PathFinder {
         while (!openList.isEmpty()) {
             Node node = (Node)openList.removeFirst();
             if (node == goalNode) {
-                // construct the path from start to goal
                 return constructPath(goalNode);
             }
 
@@ -73,6 +74,14 @@ public class PathFinder {
                     if (!isOpen) {
                         openList.add(neighborNode);
                     }
+                }
+            }
+            if (showSteps) {
+                worker.drawProgress(openList, closedList, constructPath(node));
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
             closedList.add(node);

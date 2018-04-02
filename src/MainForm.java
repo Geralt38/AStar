@@ -1,6 +1,4 @@
-import astar.Grid;
-import astar.PathFinder;
-import astar.SquareGridNode;
+import astar.*;
 import astar.drawers.GridDrawer;
 
 import javax.swing.*;
@@ -16,30 +14,31 @@ public class MainForm {
     private JPanel panel1;
     private JButton buttonFind;
     private JButton buttonReset;
+    private JRadioButton diagonalCheck;
+    private JRadioButton showSteps;
 
-    private Grid grid;
+    Worker worker;
 
     public MainForm() {
-        grid = new Grid();
+        Worker worker = new Worker(panel1, diagonalCheck, showSteps);
 
         buttonFind.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                findPath();
+                worker.findPath();
             }
         });
         buttonReset.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                grid.reset();
-                drawGrid();
+                worker.resetGrid();
             }
         });
         panel1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                handleClick(e);
+                worker.handleClick(e);
             }
         });
     }
@@ -56,28 +55,7 @@ public class MainForm {
 
     }
 
-    private void findPath() {
-        List<SquareGridNode> path = PathFinder.findPath(grid.startNode, grid.endNode);
-        if (path != null) {
-            drawGrid(path);
-        }
-    }
 
-    private void drawGrid(List<SquareGridNode> path) {
-        Thread thread = new Thread(new GridDrawer(panel1.getGraphics(), grid, path));
-        thread.start();
-    }
 
-    private void drawGrid() {
-        Thread thread = new Thread(new GridDrawer(panel1.getGraphics(), grid));
-        thread.start();
-    }
-
-    private void handleClick(MouseEvent e) {
-        int x = e.getX() / 50;
-        int y = e.getY() / 50;
-        grid.switchBlocked(x,y);
-        drawGrid();
-    }
 
 }

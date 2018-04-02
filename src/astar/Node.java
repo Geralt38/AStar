@@ -6,8 +6,8 @@ import java.util.List;
 public abstract class Node implements Comparable {
 
     Node pathParent;
-    double costFromStart;
-    double estimatedCostToGoal;
+    public double costFromStart;
+    public double estimatedCostToGoal;
 
 
     public double getCost() {

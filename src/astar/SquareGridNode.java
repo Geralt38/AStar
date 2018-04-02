@@ -18,7 +18,12 @@ public class SquareGridNode extends Node {
 
     @Override
     public double getCost(Node node) {
-        return 1;
+        SquareGridNode snode = (SquareGridNode) node;
+        if ((x == snode.x) || (y == snode.y)) {
+            return 1;
+        } else {
+            return 1.4;
+        }
     }
 
     @Override

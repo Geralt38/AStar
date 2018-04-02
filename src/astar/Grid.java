@@ -10,9 +10,12 @@ public class Grid {
     private SquareGridNode[][] nodes;
     public SquareGridNode startNode;
     public SquareGridNode endNode;
+    private boolean allowDiagonalMoves = false;
 
-    public Grid() {
-        reset();
+    public Grid() {reset();}
+
+    public void setDiagonalMoveAllowance(boolean allowDiagonalMoves) {
+        this.allowDiagonalMoves = allowDiagonalMoves;
     }
 
     public void reset() {
@@ -36,19 +39,25 @@ public class Grid {
         List<SquareGridNode> neigbours = new ArrayList<SquareGridNode>();
         if (node.x > 0) {
             addNeigbour(neigbours,nodes[node.x - 1][ node.y]);
-            /*if (node.y > 0) {
-                addNeigbour(neigbours,nodes[node.x - 1][ node.y - 1]);
-            } else if (node.y < nodes.length-1) {
-                addNeigbour(neigbours,nodes[node.x - 1][ node.y + 1]);
-            }*/
+            if (allowDiagonalMoves) {
+                if (node.y > 0) {
+                    addNeigbour(neigbours, nodes[node.x - 1][node.y - 1]);
+                }
+                if (node.y < nodes.length - 1) {
+                    addNeigbour(neigbours, nodes[node.x - 1][node.y + 1]);
+                }
+            }
         }
         if (node.x < nodes.length-1) {
             addNeigbour(neigbours,nodes[node.x + 1][ node.y]);
-            /*if (node.y > 0) {
-                addNeigbour(neigbours,nodes[node.x + 1][ node.y - 1]);
-            } else if (node.y < nodes.length-1) {
-                addNeigbour(neigbours,nodes[node.x + 1][ node.y + 1]);
-            }*/
+            if (allowDiagonalMoves) {
+                if (node.y > 0) {
+                    addNeigbour(neigbours, nodes[node.x + 1][node.y - 1]);
+                }
+                if (node.y < nodes.length - 1) {
+                    addNeigbour(neigbours, nodes[node.x + 1][node.y + 1]);
+                }
+            }
         }
         if (node.y > 0) {addNeigbour(neigbours,nodes[node.x][ node.y - 1]);}
         if (node.y < nodes.length-1) {addNeigbour(neigbours,nodes[node.x][ node.y + 1]);}
